@@ -7,6 +7,7 @@ const userSchema = new Schema({
         type: String,
         unique: true,
         lowercase: true,
+        trim: true,
         maxLength: 20,
         required: true,
         validate: (value) => {
@@ -16,6 +17,7 @@ const userSchema = new Schema({
     },
     password: {
         type: String,
+        trim: true,
         required: true,
     }
 });
