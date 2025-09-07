@@ -1,10 +1,15 @@
 const express = require("express");
+const cookieParser = require('cookie-parser')
 const app = express();
 require('dotenv').config();
 const port = process.env.PORT_NUMBER || 3000;
 const { connectDB } = require("./config/db");
+const authRouter = require("./routes/authRouter");
 
 app.use(express.json());
+app.use(cookieParser());
+
+app.use('/', authRouter);
 
 connectDB().then(() => {
     console.log("Database connected successfully!");
