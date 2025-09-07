@@ -74,10 +74,11 @@ const viewTask = async (req, res) => {
 //update task
 const updateTask = async (req, res) => {
     try {
+        const { _id: userid } = req.user;
         const { id } = req.params;
         const fieldsToUpdate = req.body;
-        const task = await Task.findByIdAndUpdate(
-            id,
+        const task = await Task.findOneAndUpdate(
+            { _id: id, createdBy: userid },
             { ...fieldsToUpdate },
             { runValidators: true }
         );
@@ -94,8 +95,9 @@ const updateTask = async (req, res) => {
 //delete task
 const deleteTask = async (req, res) => {
     try {
-        const { _id } = req.body;
-        const task = await Task.findByIdAndDelete(_id);
+        const { _id: userId } = req.user;
+        const { id } = req.params;
+        const task = await Task.findOneAndDelete({ _id: id, createdBy: userId });
         if (!task) {
             throw new Error("Task no longer available to delete.");
         }
