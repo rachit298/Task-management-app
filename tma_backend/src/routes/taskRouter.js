@@ -23,3 +23,5 @@ taskRouter.get('/task/view', authMiddleware, viewTask);
 
 //delete task 
 taskRouter.delete('/task/delete', authMiddleware, deleteTask);
+
+module.exports = taskRouter;
